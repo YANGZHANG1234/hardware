@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple Motion Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <style>
+        body {
+            /* System font stack for Apple feel */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-control-bar">
+        <h1 class="header-title">Motion Dashboard</h1>
+        <div class="controls-group">
+            <label for="device-select" class="control-label">Select Device:</label>
+            <select id="device-select" class="control-dropdown">
+                <option value="ESP32" selected>ESP32</option>
+                <option value="Unknown Device 1">Unknown Device 1</option>
+                <option value="Unknown Device 2">Unknown Device 2</option>
+            </select>
+            
+            <button id="connect-button" class="control-button">Connect</button>
+            <div id="connection-status" class="status-message"></div>
+
+            <div class="mode-selector-container">
+                <button id="mode-select-button" class="control-button primary mode-icon-button"></button>
+                <div id="mode-floating-menu" class="floating-menu hidden">
+                    <div class="mode-option" data-mode="walk">Walk</div>
+                    <div class="mode-option" data-mode="run">Run</div>
+                    <div class="mode-option" data-mode="stair">Stair</div>
+                    <div class="mode-option" data-mode="jump">Jump</div>
+                </div>
+            </div>
+            <button id="start-prediction-button" class="control-button primary" disabled>Start Prediction</button>
+        </div>
+    </header>
+
+    <main class="dashboard-layout">
+        <div class="left-column">
+            
+            <section class="chart-panel panel-card accel-panel">
+                <h2 class="card-title">Accelerometer (Enhanced Normalized 0-1)</h2>
+                <div class="chart-container">
+                    <canvas id="accel-chart"></canvas>
+                </div>
+            </section>
+            
+            <section class="chart-panel panel-card mmg-panel">
+                <h2 class="card-title">MMG (Normalized 0-1)</h2>
+                <div class="chart-container">
+                    <canvas id="mmg-chart"></canvas>
+                </div>
+            </section>
+
+            <section class="chart-panel panel-card emg-panel">
+                <h2 class="card-title">EMG (Normalized 0-1)</h2>
+                <div class="chart-container">
+                    <canvas id="emg-chart"></canvas>
+                </div>
+            </section>
+
+        </div>
+
+        <div class="right-column">
+            
+            <section class="prediction-panel panel-card">
+                <h2 class="card-title">Motion Prediction</h2>
+                <div class="prediction-content">
+                    <p class="label">Predicted Action:</p>
+                    <p id="predicted-action" class="value action-value">AWAITING DATA</p>
+                </div>
+                
+                <div class="prediction-item">
+                    <p class="label">Confidence:</p>
+                    <p id="confidence-value" class="value confidence-value">--</p>
+                </div>
+            </section>
+            
+            <section class="status-panel panel-card">
+                <h2 class="card-title">System Status</h2>
+                <div id="system-status" class="system-status-text">Ready to connect device.</div>
+            </section>
+
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
